@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+div {
+  margin-bottom: 15px;
+  padding: 4px 12px;
+}
+
+.success {
+  background-color: #ddffdd;
+  border-left: 6px solid #04AA6D;
+}
+</style>
+<script>
+// ฟังก์ชันเพื่อดึง IP ของโฮสต์ปัจจุบัน
+function getHostIp() {
+  return window.location.hostname;
+}
+
+function createLink() {
+  var vpsIp = getHostIp(); // เรียกใช้ฟังก์ชันเพื่อดึง IP ของโฮสต์
+  var userInput = document.getElementById("text-input").value;
+  var link = vpsIp + ":85/openvpn/" + userInput;
+  // แยกส่วนของ URL เพื่อให้ได้ส่วน path ของลิงก์
+  var urlParts = userInput.split("/");
+  var fileName = urlParts[urlParts.length - 1]; // ชื่อไฟล์สุดท้าย
+
+  // กำหนดค่าให้กับ input อัตโนมัติ
+  document.getElementById("text-input").value = fileName;
+  document.getElementById("generated-link").innerHTML = "<a href='" + link + "'>" + link + "</a>";
+  
+  // เปิดลิงก์ทันทีหลังจากสร้าง
+  window.open(link);
+}
+</script>
+</head>
+<body>
+
+<div height='45' align="center">
+  <a href="https://m.me/phanudet2538t"> 
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/apachemaven.svg" height='60'>
+  </a>
+  <p align="center">
+    <marquee direction="left" behavior="scroll" scrollamount="5">
+      Script HYPER-X BY Gun-X
+    </marquee>
+  </p>
+  
+  <p align="center">
+    <img src="https://readme-typing-svg.herokuapp.com?color=FF0000&v=true&lines=Script+HYPER-X+BY+Gun-X" 
+         alt="HYPER-X Script by Gun-X" />
+  </p>
+  
+  <h1 style="font-size:140%;"> Script By Alone Phanudet</h1>
+</div>
+
+<h1 style="font-size:120%;">VPS To VPN Server..</h1>
+<div class="success">
+  <p>
+    <strong>System !.</strong> OpenVPN Contact ( <ins>file .ovpn</ins> )  <mark>Android Ios Pc</mark> <ins>OK.</ins>
+  </p>
+</div>
+
+<!-- เพิ่มแท็บพิมพ์และปุ่ม "ตกลง" -->
+<div>
+  <label for="text-input">กรอกข้อความ:</label>
+  <input type="text" id="text-input" name="text-input">
+  <button type="button" id="submit-button" onclick="createLink()">ตกลง</button>
+</div>
+
+<!-- แสดงลิงก์ที่สร้างขึ้น -->
+<div id="generated-link"></div>
+
+</body>
+</html>
