@@ -30,18 +30,6 @@ div {
   <button onclick="openLink()">ตกลง</button>
 </div>
 
-<?php
-if(isset($_GET['search']) && $_GET['search'] != '') {
-  $searchValue = htmlspecialchars($_GET['search']);
-  echo "<script>
-          document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('searchInput').value = '$searchValue';
-            openLink();
-          });
-        </script>";
-}
-?>
-
 <script>
 function getIPAddress(callback) {
   fetch('https://api.ipify.org?format=json')
@@ -54,8 +42,18 @@ function openLink() {
   var searchInput = document.getElementById("searchInput").value;
   getIPAddress(function(ipAddress) {
     var link = "http://" + ipAddress + ":85/openvpn"; // ใช้ IP ในลิงก์
-    var fullLink = link + "/" + searchInput;
+    var fullLink = link + "/" + encodeURIComponent(searchInput);
     window.open(fullLink, '_blank'); // เปิดลิงก์ในแท็บใหม่
+  });
+}
+
+// ตรวจสอบว่ามีค่า "search" ใน URL
+var urlParams = new URLSearchParams(window.location.search);
+var searchValueFromURL = urlParams.get("search");
+if (searchValueFromURL) {
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('searchInput').value = decodeURIComponent(searchValueFromURL);
+    openLink();
   });
 }
 </script>
