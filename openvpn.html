@@ -1,1 +1,408 @@
+<script type="text/javascript">
+/*********************************************************************************
+* บริการรับทำระบบ vpn และสคริปต่าง ๆ | https://m.me/GenesisPresent.co.th | All rights reserved.
+*********************************************************************************/
+</script>
+<!DOCTYPE html>
+<html lang="en" style="height: auto;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="stats-in-th" content="61de" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="https://summervpn.com/asset/css/sb-admin-2.css" rel="stylesheet" />
+<script language="JavaScript">
+	document.onkeypress = function (event) {
+	event = (event || window.event);
+	if (event.keyCode == 123) {
+	//alert('No F-12');
+	return false;
+	}
+	}
+	document.onmousedown = function (event) {
+	event = (event || window.event);
+	if (event.keyCode == 123) {
+	//alert('No F-keys');
+	return false;
+	}
+	}
+	document.onkeydown = function (event) {
+	event = (event || window.event);
+	if (event.keyCode == 123) {
+	//alert('No F-keys');
+	return false;
+	}
+	}
+	</script>
+<script type="text/javascript"> 
+	var message="Sorry, right-click has been disabled"; 
+	function clickIE() {if (document.all) {(message);return false;}} 
+	function clickNS(e) {if 
+	(document.layers||(document.getElementById&&!document.all)) { 
+	if (e.which==2||e.which==3) {(message);return false;}}} 
+	if (document.layers) 
+	{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;} 
+	else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;} 
+	document.oncontextmenu=new Function("return false") 
+	</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" style="height: auto;">
+<head>
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.2.1/font-awesome-animation.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="/asset/css/bootstrap.min.css" rel="stylesheet">
+<link href="/asset/css/bootstrap.css" rel="stylesheet">
+<link href="/asset/dist/css/AdminLTE.min.css" rel="stylesheet">
+<link href="/asset/dist/css/skins/x.css" rel="stylesheet">
+<link href="/asset/css/bootstrap-dialog.min.css" rel="stylesheet">
+<link href="/asset/css/material-kitt.css" rel="stylesheet">
+<link href="/netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+
+<link href="/css/buttonlss.css" rel="stylesheet">
+
+
+<style type="text/css">
+	<!--
+	.style5 {color: #00CCFF; font-weight: bold; }
+	.style7 {color: #00FF00; font-weight: bold; }
+	-->
+	</style>
+<style>
+  
+body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background-image: url("https://darumavpn.tk/public/riktheme/img/bg-img/8.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;  
+      background-size: cover;
+
+ }
+#logreg-forms{
+    width:100%;
+    margin:10vh auto;
+    margin-top: 25px;
+    background-color:rgb(0, 0, 0, 0.54);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+</style>
+<script type="text/javascript">
+	/***********************************************
+	* Document Text Sizer- Copyright 2019 - All rights reserved.
+	***********************************************/
+	
+	function disableSelection(target){
+	if(typeof target.onselectstart != 'undefined')   //IE route
+	target.onselectstart=function(){ return false; }
+	else if(typeof target.style.MozUserSelect != 'undefined')    //Firefox route
+	target.style.MozUserSelect = 'none'
+	else    //All other route (ie: Opera)
+
+
+
+	target.onmousedown = function(){ return false; }
+	target.style.cursor = 'default';
+	}
+	
+	/* Disable Right Click */
+	var message="You may not right mouse click this page.";
+	if (navigator.appName == 'Microsoft Internet Explorer'){
+	function NOclickIE(e) {
+	if (event.button == 2 || event.button == 3) {
+	alert(message);
+	return false;
+	}
+	return true;
+	}
+	document.onmousedown=NOclickIE;
+	document.onmouseup=NOclickIE;
+	window.onmousedown=NOclickIE;
+	window.onmouseup=NOclickIE;
+	}
+	else {
+	function NOclickNN(e){
+	if (document.layers||document.getElementById&&!document.all){
+	if (e.which==2||e.which==3){
+	alert(message);
+	return false;
+	}}}
+	if (document.layers){
+	document.captureEvents(Event.MOUSEDOWN);
+	document.onmousedown=NOclickNN; }
+	document.oncontextmenu=new Function("alert(message);return false")
+	}
+	
+	function disableCtrlKeyCombination(e){
+	//list all CTRL + key combinations you want to disable
+	var forbiddenKeys = new Array('a', 'c', 's', 'u', 'x');
+	var key;
+	var isCtrl;
+	
+	if(window.event){
+	key = window.event.keyCode;   //IE
+	if(window.event.ctrlKey) isCtrl = true;
+	else isCtrl = false;
+	}
+	else{
+	key = e.which;   //firefox
+	if(e.ctrlKey) isCtrl = true;
+	else isCtrl = false;
+	}
+	
+	//if ctrl is pressed check if other key is in forbidenKeys array
+	if(isCtrl){
+	for(i=0; i<forbiddenKeys .length; i++){
+	//case-insensitive comparation
+	if(forbiddenKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase()){
+	alert('Key combination CTRL + '+String.fromCharCode(key)+' has been disabled.');
+	return false;
+	}
+	}
+	}
+	return true;
+	}
+	</script>
+<script type="text/javascript" src="/a/script/textsizer.js">
+	/***********************************************
+	* Document Text Sizer- Copyright 2019 - All rights reserved.
+	***********************************************/
+	</script>
+</head>
+<body style="height: auto;">
+<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Kanit:300" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Kanit|Mitr|Pridi:400,300&amp;subset=thai,latin" rel="stylesheet" type="text/css">
+<style>
+	body {
+	font-family: 'Kanit', sans-serif;
+	font-family: 'Pridi', serif;
+	font-family: 'Mitr', sans-serif;
+	}
+	h1 {
+	font-family: 'Kanit', sans-serif;
+	font-family: 'Pridi', serif;
+	font-family: 'Mitr', sans-serif;
+	}
+	.style1 {font-family: Geneva, Arial, Helvetica, sans-serif}
+	</style>
+
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+.imgback {
+ background-image: url("https://darumavpn.tk/public/riktheme/img/bg-img/8.jpg");
+ background-color: #cccccc;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 90%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 80%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+<section id="services">
+<div class="login-box-body">
+<center>
+<h6 class="alert-heading"><font color="red">
+<i class aria-hidden="true"></i><b><img src="https://raw.githubusercontent.com/LiLGun-X/Fuxk-Web/main/wel.png" width="43" height="43"> WELCOME ! </b></h6><b>ขอขอบคุณที่ใช้ [ HYPER-X-SCRIPT ] <br><b>หน้าเว็บโหลดไฟล์ .OVPN<br>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+			p {
+		    text-align: center;
+		    font-size: 13px;
+  		  margin-top: 0px;
+			}
+			</style>
+</head>
+<body>
+<p id="time"></p>
+<script>
+			// กำหนดวันที่เรากำลังนับถอยหลัง
+			var countDownDate = new Date("Nov 7, 2021 00:00:00").getTime();
+			// อัปเดตการนับถอยหลังทุก 1 วินาที
+			var x = setInterval(function() {
+		    // รับวันที่และเวลาของวันนี้
+ 		   var now = new Date().getTime();    
+ 		   // ค้นหาระยะห่างระหว่างวันนี้ถึงวันที่นับถอยหลัง
+ 		   var distance = countDownDate - now;
+  		  // การคำนวณเวลาสำหรับวันชั่วโมงนาทีและวินาที
+  		  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+ 	  	 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  	  	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  		   // แสดงผลลัพธ์ในองค์ประกอบที่มี id = "time"
+  		  document.getElementById("time").innerHTML = " [ " + days + " วัน " + hours + " ชั่วโมง "
+  		  + minutes + " นาที " + seconds + " วินาที ]";
+  		  // หากการนับถอยหลังสิ้นสุดลงให้เขียนข้อความ
+  		  if (distance < 0) {
+    		clearInterval(x);
+    		document.getElementById("time").innerHTML = "[ By LiLGun-X ]";
+  		  }
+			}, 1500);
+			</script>
+<div class="imgcontainer">
+  <img src="https://raw.githubusercontent.com/LiLGun-X/Fuxk-Web/main/opf.png" alt="Avatar" class="avatar" style="width: 100px; height: auto;">
+</div>
+<div class="container">
+<label for="uname"><b>แนะนำ!!  เอาUsernameที่สร้างมาต่อท้ายด้วย.zip</b></label>
+<input type="text" id="searchInput" placeholder="ตัวอย่าง!! Test.zip"  >
+<button onclick="openLink()" type="submit">กดโหลดไฟล์</button>
+  
+
+
+<script>
+function getIPAddress(callback) {
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => callback(data.ip))
+    .catch(error => console.error('Error fetching IP:', error));
+}
+
+function openLink() {
+  var searchInput = document.getElementById("searchInput").value;
+  getIPAddress(function(ipAddress) {
+    var link = "http://" + ipAddress + ":85/openvpn"; // ใช้ IP ในลิงก์
+    var fullLink = link + "/" + encodeURIComponent(searchInput);
+    window.open(fullLink, '_blank'); // เปิดลิงก์ในแท็บใหม่
+  });
+}
+
+// ตรวจสอบว่ามีค่า "search" ใน URL
+var urlParams = new URLSearchParams(window.location.search);
+var searchValueFromURL = urlParams.get("search");
+if (searchValueFromURL) {
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('searchInput').value = decodeURIComponent(searchValueFromURL);
+    openLink();
+  });
+}
+</script>
+  
+<br>
+<div class="container" style="background-color:#f1f1f1">
+<script type="text/javascript" src="https://www.siamecohost.com/member/gcounter/graphcount.php?page=summervpn.com&style=48&maxdigits=5"></script>
+<b><marquee> ไฟล์ที่โหลดนี้เป็นแต่.ZIP   ต้องแตกไฟล์ด้วยนะครับ!! </marquee></b>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+
+<br>
+
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+</b></center>
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.0.0/metisMenu.min.js"></script>
+<link href="/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+<link href="/plugins/datepicker/datepicker3.css" rel="stylesheet">
+<script src="/asset/js/bootstrap.min.js"></script>
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/plugins/fastclick/fastclick.js"></script>
+<script src="/asset/dist/js/app.min.js"></script>
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script>
+	<!-- js -->
+
+	$(function () {
+	$('#fornesia').DataTable({
+	"paging": true,
+	"lengthChange": false,
+	"searching": false,
+	"ordering": true,
+	"info": true,
+	"autoWidth": false
+	});
+	});
+	
+	<
+</div>
+</section>
+</body>
+  </html>
