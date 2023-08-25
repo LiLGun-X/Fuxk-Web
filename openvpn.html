@@ -306,37 +306,37 @@ span.psw {
 <div class="container">
 <label for="uname"><b>แนะนำ!!  เอาUsernameที่สร้างมาต่อท้ายด้วย.zip</b></label>
 <input type="text" id="searchInput" placeholder="ตัวอย่าง!! Test.zip"  >
-<button onclick="openLink()" type="submit">กดโหลดไฟล์</button>
+<button onclick="generateOpenVPNLink()" type="submit">กดโหลดไฟล์</button>
   
 
-<script>
-function openLink(ipAddress) {
-  var searchInput = document.getElementById("searchInput").value;
-  var link = "http://" + ipAddress + ":85/openvpn";
-  var fullLink = link + "/" + encodeURIComponent(searchInput);
-  window.open(fullLink, '_blank');
-}
 
-var urlParams = new URLSearchParams(window.location.search);
-var searchValueFromURL = urlParams.get("search");
-if (searchValueFromURL) {
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('searchInput').value = decodeURIComponent(searchValueFromURL);
+  <script>
+    function getIPAddress(callback) {
+      fetch('https://ipinfo.io/json')
+        .then(response => response.json())
+        .then(data => callback(data.ip))
+        .catch(error => console.error('Error fetching IP:', error));
+    }
 
-    // Get IP address of the VPS using shell command
-    var ipAddressCmd = "curl ipv4.icanhazip.com";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/exec?cmd=" + encodeURIComponent(ipAddressCmd), true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        var ipAddress = xhr.responseText.trim();
-        openLink(ipAddress);
-      }
-    };
-    xhr.send();
-  });
-}
-</script>
+    function generateOpenVPNLink() {
+      getIPAddress(function(ipAddress) {
+        var searchInput = document.getElementById("searchInput").value;
+        var link = "http://" + ipAddress + ":85/openvpn";
+        var fullLink = link + "/" + encodeURIComponent(searchInput);
+        window.open(fullLink, '_blank');
+      });
+    }
+
+    // Check for "search" value in URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var searchValueFromURL = urlParams.get("search");
+    if (searchValueFromURL) {
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('searchInput').value = decodeURIComponent(searchValueFromURL);
+        generateOpenVPNLink();
+      });
+    }
+  </script>
   
 <br>
 <div class="container" style="background-color:#f1f1f1">
@@ -405,4 +405,4 @@ if (searchValueFromURL) {
 </div>
 </section>
 </body>
-											      </html>
+	</html>
