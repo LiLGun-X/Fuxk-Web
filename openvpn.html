@@ -309,31 +309,31 @@ span.psw {
 <button onclick="openLink()" type="submit">กดโหลดไฟล์</button>
   
 
-
 <script>
-function getIPAddress(callback) {
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => callback(data.ip))
-    .catch(error => console.error('Error fetching IP:', error));
-}
-
-function openLink() {
+function openLink(ipAddress) {
   var searchInput = document.getElementById("searchInput").value;
-  getIPAddress(function(ipAddress) {
-    var link = "http://" + ipAddress + ":85/openvpn"; // ใช้ IP ในลิงก์
-    var fullLink = link + "/" + encodeURIComponent(searchInput);
-    window.open(fullLink, '_blank'); // เปิดลิงก์ในแท็บใหม่
-  });
+  var link = "http://" + ipAddress + ":85/openvpn";
+  var fullLink = link + "/" + encodeURIComponent(searchInput);
+  window.open(fullLink, '_blank');
 }
 
-// ตรวจสอบว่ามีค่า "search" ใน URL
 var urlParams = new URLSearchParams(window.location.search);
 var searchValueFromURL = urlParams.get("search");
 if (searchValueFromURL) {
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchInput').value = decodeURIComponent(searchValueFromURL);
-    openLink();
+
+    // Get IP address of the VPS using shell command
+    var ipAddressCmd = "curl ipv4.icanhazip.com";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/exec?cmd=" + encodeURIComponent(ipAddressCmd), true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var ipAddress = xhr.responseText.trim();
+        openLink(ipAddress);
+      }
+    };
+    xhr.send();
   });
 }
 </script>
@@ -405,4 +405,4 @@ if (searchValueFromURL) {
 </div>
 </section>
 </body>
-  </html>
+											      </html>
