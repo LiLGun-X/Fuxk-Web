@@ -337,12 +337,21 @@ span.psw {
       });
     }
   </script>
+      <script>
+        fetch('https://api64.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+                document.getElementById('ip-display').textContent += ip;
+            })
+            .catch(error => console.error('เกิดข้อผิดพลาด: ', error));
+    </script>
   
 <br>
 <div class="container" style="background-color:#f1f1f1">
 <script type="text/javascript" src="https://www.siamecohost.com/member/gcounter/graphcount.php?page=summervpn.com&style=48&maxdigits=5"></script>
 <b><marquee> ไฟล์ที่โหลดนี้เป็นแต่.ZIP   ต้องแตกไฟล์ด้วยนะครับ!! </marquee></b>
-
+<p id="ip-display">IP ของคุณคือ: </p>
 
 </div>
 </div>
@@ -405,4 +414,4 @@ span.psw {
 </div>
 </section>
 </body>
-	</html>
+</html>
