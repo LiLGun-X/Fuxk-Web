@@ -1,1 +1,2 @@
 # Fuxk-Web
+''' wget '''
