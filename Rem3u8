@@ -24,29 +24,113 @@ function e($s) {
 $m3u8 = $_POST['m3u8'] ?? '';
 $referer = $_POST['referer'] ?? '';
 $generatedLink = '';
+$historyFile = __DIR__ . '/history.json';
 
 if ($m3u8 && $referer) {
     $encodedUrl = urlencode($m3u8);
     $encodedReferer = urlencode($referer);
     $generatedLink = "http://{$_SERVER['HTTP_HOST']}/stream.php?url=$encodedUrl&referer=$encodedReferer";
+
+    $history = file_exists($historyFile) ? json_decode(file_get_contents($historyFile), true) : [];
+    $history[] = [
+        'link' => $generatedLink,
+        'time' => date('Y-m-d H:i:s')
+    ];
+    file_put_contents($historyFile, json_encode($history, JSON_PRETTY_PRINT));
 }
+
+$history = file_exists($historyFile) ? json_decode(file_get_contents($historyFile), true) : [];
+$history = array_reverse($history);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>M3U8 Proxy Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    input[type="text"] { width: 100%; padding: 8px; margin: 6px 0; }
-    button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-    .output { margin-top: 20px; padding: 10px; background: #f8f9fa; border: 1px solid #ccc; position: relative; }
-    .copy-button { margin-top: 10px; background-color: #28a745; }
-    .copied { color: green; margin-left: 10px; }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #00ffc3;
+    }
+
+    form, .output, .history-block {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.2);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #cccccc;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 15px;
+      background-color: #2c2c2c;
+      color: #ffffff;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    button[type="submit"] {
+      background-color: #00ffc3;
+      color: #000;
+      width: 100%;
+    }
+
+    .copy-button {
+      background-color: #00bfff;
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    .link-item {
+      margin-bottom: 15px;
+    }
+
+    .link-item input {
+      margin-bottom: 6px;
+    }
+
+    .timestamp {
+      color: #888;
+      font-size: 0.8em;
+    }
+
+    @media (max-width: 600px) {
+      input[type="text"], button {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h2>M3U8 Proxy Link Generator</h2>
+  <h2>M3U8 Proxy Generator</h2>
+
   <form method="post">
     <label>M3U8 URL:</label>
     <input type="text" name="m3u8" required value="<?= e($m3u8) ?>">
@@ -59,25 +143,32 @@ if ($m3u8 && $referer) {
 
   <?php if ($generatedLink): ?>
     <div class="output">
-      <strong>Proxy Link:</strong><br>
-      <input type="text" id="proxyLink" value="<?= e($generatedLink) ?>" readonly style="width:100%; padding:5px;">
-      <button class="copy-button" onclick="copyLink()">Copy</button>
-      <span class="copied" id="copiedMsg" style="display:none;">Copied!</span>
+      <h3>✅ Generated Link</h3>
+      <input type="text" id="newLink" value="<?= e($generatedLink) ?>" readonly>
+      <button class="copy-button" onclick="copyText('newLink')">Copy</button>
+    </div>
+  <?php endif; ?>
+
+  <?php if (!empty($history)): ?>
+    <div class="history-block">
+      <h3>📜 History</h3>
+      <?php foreach ($history as $i => $entry): ?>
+        <div class="link-item">
+          <input type="text" id="history<?= $i ?>" value="<?= e($entry['link']) ?>" readonly>
+          <button class="copy-button" onclick="copyText('history<?= $i ?>')">Copy</button>
+          <div class="timestamp"><?= e($entry['time']) ?></div>
+        </div>
+      <?php endforeach; ?>
     </div>
   <?php endif; ?>
 
   <script>
-    function copyLink() {
-      const linkInput = document.getElementById('proxyLink');
-      linkInput.select();
-      linkInput.setSelectionRange(0, 99999);
+    function copyText(id) {
+      const input = document.getElementById(id);
+      input.select();
+      input.setSelectionRange(0, 99999);
       document.execCommand("copy");
-
-      const msg = document.getElementById('copiedMsg');
-      msg.style.display = 'inline';
-      setTimeout(() => {
-        msg.style.display = 'none';
-      }, 2000);
+      alert("Copied!");
     }
   </script>
 </body>
@@ -142,6 +233,8 @@ echo "?? เปิดใช้งาน config..."
 sudo ln -sf "$NGINX_CONF" /etc/nginx/sites-enabled/
 
 echo "?? รีโหลด NGINX..."
+sudo systemctl stop apache2
+sudo systemctl disable apache2
 sudo nginx -t && sudo systemctl reload nginx
-
+sudo systemctl start nginx
 echo "✅ เสร็จแล้ว! เข้าดูที่: http://<your-server-ip>:$PORT"
